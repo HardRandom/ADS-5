@@ -6,8 +6,8 @@
 
 template <typename T, int kMaxStackSize>
 class TStack {
-public:
-    TStack() : pointer_(-1) {}   
+ public:
+    TStack() : pointer_(-1) {}  
     bool isVoid() const { return pointer_ == -1; }
     bool isFull() const { return pointer_ == kMaxStackSize - 1; }
     void add(const T& value) {
@@ -22,7 +22,7 @@ public:
         if (isVoid()) throw std::underflow_error("Stack empty");
         return storage_[pointer_];
     }
-private:
+ private:
     T storage_[kMaxStackSize];
     int pointer_;
 };

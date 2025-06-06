@@ -22,7 +22,8 @@ string infx2pstfx(const string& inf) {
             continue;
         }
         if (isdigit(static_cast<unsigned char>(ch))) {
-            while (i < inf.size() && isdigit(static_cast<unsigned char>(inf[i]))) {
+            while (i < inf.size() && isdigit(static_cast<unsigned 
+                char>(inf[i]))) {
                 out += inf[i++];
             }
             out += ' ';

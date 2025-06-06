@@ -6,7 +6,7 @@
 
 template <typename T, int kMaxStackSize>
 class TStack {
-public:
+ public:
     TStack() : pointer_(-1) {
     bool isVoid() const { return pointer_ == -1; }
     bool isFull() const { return pointer_ == kMaxStackSize - 1; }
@@ -25,5 +25,5 @@ public:
 private:
     T storage_[kMaxStackSize];
     int pointer_;
-};
+}
 #endif // INCLUDE_TSTACK_H_

@@ -18,8 +18,9 @@ string infx2pstfx(const string& inf) {
     string out;
     for (size_t i = 0; i < inf.size(); ++i) {
         char ch = inf[i];
-        if (isspace(static_cast<unsigned char>(ch))) continue;
-
+        if (isspace(static_cast<unsigned char>(ch))) {
+            continue;
+        }
         if (isdigit(static_cast<unsigned char>(ch))) {
             while (i < inf.size() && isdigit(static_cast<unsigned char>(inf[i]))) {
                 out += inf[i++];

@@ -29,7 +29,8 @@ string infx2pstfx(const string& inf) {
             continue;
         }
         if (isdigit(static_cast<unsigned char>(ch))) {
-            while (i < inf.size() && isdigit(static_cast<unsigned char>(inf[i]))) {
+            while (i < inf.size() && isdigit(static_cast<unsigned
+                char>(inf[i]))) {
                 out += inf[i++];
             }
             out += ' ';
@@ -43,7 +44,7 @@ string infx2pstfx(const string& inf) {
             }
             if (!ops.isVoid()) ops.remove();
         } else if (isOp(ch)) {
-            while (!ops.isVoid() && isOp(ops.getTop()) && 
+            while (!ops.isVoid() && isOp(ops.getTop()) &&
                    precedence(ops.getTop()) >= precedence(ch)) {
                 out += ops.remove();
                 out += ' ';
@@ -51,12 +52,10 @@ string infx2pstfx(const string& inf) {
             ops.add(ch);
         }
     }
-    
     while (!ops.isVoid()) {
         out += ops.remove();
         out += ' ';
     }
-    
     if (!out.empty() && out.back() == ' ') out.pop_back();
     return out;
 }
@@ -65,14 +64,12 @@ int eval(const string& post) {
     TStack<int, 128> st;
     istringstream ss(post);
     string token;
-    
     while (ss >> token) {
         if (token.size() == 1 && isOp(token[0])) {
             if (st.isVoid()) throw runtime_error("Not enough operands");
             int rhs = st.remove();
             if (st.isVoid()) throw runtime_error("Not enough operands");
             int lhs = st.remove();
-            
             switch (token[0]) {
                 case '+': st.add(lhs + rhs); break;
                 case '-': st.add(lhs - rhs); break;

@@ -22,30 +22,30 @@ string infx2pstfx(const string& inf) {
             continue;
         }
         if (isdigit(static_cast<unsigned char>(ch))) {
-            while (i < inf.size() && isdigit(static_cast<unsigned 
+            while (i < inf.size() && isdigit(static_cast<unsigned
                 char>(inf[i]))) {
                 out += inf[i++];
             }
             out += ' ';
             --i;
         } else if (ch == '(') {
-            ops.add(ch); // Исправлено на add()
+            ops.add(ch);
         } else if (ch == ')') {
-            while (!ops.isVoid() && ops.getTop() != '(') { // Исправлено на isVoid() и getTop()
+            while (!ops.isVoid() && ops.getTop() != '(') {
                 out += ops.remove(); // Исправлено на remove()
                 out += ' ';
             }
             if (!ops.isVoid()) ops.remove();
         } else if (isOp(ch)) {
-            while (!ops.isVoid() && isOp(ops.getTop()) && 
+            while (!ops.isVoid() && isOp(ops.getTop()) &&
                    precedence(ops.getTop()) >= precedence(ch)) {
                 out += ops.remove();
                 out += ' ';
             }
-            ops.add(ch); // Исправлено на add()
+            ops.add(ch);
         }
     }
-    while (!ops.isVoid()) { // Исправлено на isVoid()
+    while (!ops.isVoid()) {
         out += ops.remove();
         out += ' ';
     }
@@ -59,22 +59,21 @@ int eval(const string& post) {
     string token;
     while (ss >> token) {
         if (token.size() == 1 && isOp(token[0])) {
-            if (st.isVoid()) throw runtime_error("Not enough operands"); // Исправлено на isVoid()
-            int rhs = st.remove(); // Исправлено на remove()
-            if (st.isVoid()) throw runtime_error("Not enough operands");
+            if (st.isVoid()) throw runtime_error("No");
+            int rhs = st.remove();
+            if (st.isVoid()) throw runtime_error("No");
             int lhs = st.remove();
-            
             switch (token[0]) {
-                case '+': st.add(lhs + rhs); break; // Исправлено на add()
+                case '+': st.add(lhs + rhs); break;
                 case '-': st.add(lhs - rhs); break;
                 case '*': st.add(lhs * rhs); break;
                 case '/': st.add(lhs / rhs); break;
             }
         } else {
-            st.add(stoi(token)); // Исправлено на add()
+            st.add(stoi(token));
         }
     }
-    int result = st.remove(); // Исправлено на remove()
-    if (!st.isVoid()) throw runtime_error("Too many operands"); // Исправлено на isVoid()
+    int result = st.remove();
+    if (!st.isVoid()) throw runtime_error("Ts");
     return result;
 }

@@ -42,7 +42,7 @@ string infx2pstfx(const string& inf) {
             }
             if (!ops.isVoid()) ops.remove();
         } else if (isOp(ch)) {
-            while (!ops.isVoid() && isOp(ops.getTop()) && 
+            while (!ops.isVoid() && isOp(ops.getTop()) &&
                    precedence(ops.getTop()) >= precedence(ch)) {
                 out += ops.remove();
                 out += ' ';
@@ -68,7 +68,6 @@ int eval(const string& post) {
             int rhs = st.remove();
             if (st.isVoid()) throw runtime_error("Not enough operands");
             int lhs = st.remove();
-            
             switch (token[0]) {
                 case '+': st.add(lhs + rhs); break;
                 case '-': st.add(lhs - rhs); break;

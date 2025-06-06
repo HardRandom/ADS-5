@@ -5,29 +5,23 @@
 #include <stdexcept>
 #include "tstack.h"
 
-using std::string;
-using std::istringstream;
-using std::runtime_error;
-using std::isdigit;
-using std::isspace;
-using std::stoi;
-
 static int precedence(char op) {
     return (op == '+' || op == '-') ? 1 : (op == '*' || op == '/') ? 2 : 0;
 }
 static inline bool isOp(char c) {
     return c == '+' || c == '-' || c == '*' || c == '/';
 }
-string infx2pstfx(const string& inf) {
+std::string infx2pstfx(const std::string& inf) {
     const int kStackSize = 128;
     TStack<char, kStackSize> ops;
-    string out;
+    std::string out;
     for (size_t i = 0; i < inf.size(); ++i) {
         char ch = inf[i];
-        if (isspace(static_cast<unsigned char>(ch))) continue;
-
-        if (isdigit(static_cast<unsigned char>(ch))) {
-            while (i < inf.size() && isdigit(static_cast<unsigned
+        if (std::isspace(static_cast<unsigned char>(ch))) {
+            continue;
+        }
+        if (std::isdigit(static_cast<unsigned char>(ch))) {
+            while (i < inf.size() && std::isdigit(static_cast<unsigned
                 char>(inf[i]))) {
                 out += inf[i++];
             }
@@ -57,16 +51,16 @@ string infx2pstfx(const string& inf) {
     if (!out.empty() && out.back() == ' ') out.pop_back();
     return out;
 }
-int eval(const string& post) {
+int eval(const std::string& post) {
     const int kStackSize = 128;
     TStack<int, kStackSize> st;
-    istringstream ss(post);
-    string token;
+    std::istringstream ss(post);
+    std::string token;
     while (ss >> token) {
         if (token.size() == 1 && isOp(token[0])) {
-            if (st.isVoid()) throw runtime_error("Not enough operands");
+            if (st.isVoid()) throw std::runtime_error("Not enough operands");
             int rhs = st.remove();
-            if (st.isVoid()) throw runtime_error("Not enough operands");
+            if (st.isVoid()) throw std::runtime_error("Not enough operands");
             int lhs = st.remove();
             switch (token[0]) {
                 case '+': st.add(lhs + rhs); break;
@@ -75,10 +69,10 @@ int eval(const string& post) {
                 case '/': st.add(lhs / rhs); break;
             }
         } else {
-            st.add(stoi(token));
+            st.add(std::stoi(token));
         }
     }
     int result = st.remove();
-    if (!st.isVoid()) throw runtime_error("Too many operands");
+    if (!st.isVoid()) throw std::runtime_error("Too many operands");
     return result;
 }

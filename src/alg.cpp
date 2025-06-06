@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include "tstack.h"
 
-using namespace std;
+
 static int precedence(char op) {
     return (op == '+' || op == '-') ? 1 : (op == '*' || op == '/') ? 2 : 0;
 }
